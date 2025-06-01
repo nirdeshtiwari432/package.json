@@ -1,11 +1,19 @@
 import Fastify from 'fastify';
-import formbody from '@fastify/formbody';
 import fetch from 'node-fetch';
+import formbody from '@fastify/formbody';
+import cors from '@fastify/cors';
 
 const fastify = Fastify();
 
+// Register CORS — important!
+await fastify.register(cors, {
+  origin: true, // or set to a specific origin like 'https://kunwar-awadhiya.onrender.com'
+});
+
+// Register form body parser
 fastify.register(formbody);
 
+// Route to proxy check-website requests
 fastify.post('/check-website', async (request, reply) => {
   try {
     const response = await fetch('http://3.6.235.10:8000/check-website', {
@@ -23,17 +31,8 @@ fastify.post('/check-website', async (request, reply) => {
   }
 });
 
-const start = async () => {
-  try {
-    await fastify.listen({
-      port: process.env.PORT || 3000,
-      host: '0.0.0.0' // This line is REQUIRED for Render
-    });
-    console.log('✅ Proxy server running');
-  } catch (err) {
-    console.error(err);
-    process.exit(1);
-  }
-};
-
-start();
+// Start the server
+fastify.listen({ port: process.env.PORT || 3000, host: '0.0.0.0' }, (err) => {
+  if (err) throw err;
+  console.log('✅ Proxy server running');
+});
