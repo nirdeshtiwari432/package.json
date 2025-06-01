@@ -4,11 +4,12 @@
   "scripts": {
     "start": "node index.js"
   },
-  "dependencies": {
-    "@fastify/formbody": "^8.0.2",
-    "@fastify/cors": "^8.3.0",
-    "fastify": "^5.3.3",
-    "node-fetch": "^3.3.2"
-  },
+ "dependencies": {
+  "@fastify/formbody": "^8.0.2",
+  "@fastify/cors": "^9.0.0",
+  "fastify": "^5.3.3",
+  "node-fetch": "^3.3.2"
+},
+
   "type": "module"
 }
