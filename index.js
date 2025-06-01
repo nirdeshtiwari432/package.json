@@ -1,9 +1,11 @@
 import Fastify from 'fastify';
+import formbody from '@fastify/formbody'; // correct usage
 import fetch from 'node-fetch';
 
 const fastify = Fastify();
 
-fastify.register(import('@fastify/formbody'));
+// Register the plugin directly
+await fastify.register(formbody);
 
 fastify.post('/check-website', async (request, reply) => {
   try {
