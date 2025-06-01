@@ -1,11 +1,10 @@
 import Fastify from 'fastify';
-import formbody from '@fastify/formbody'; // correct usage
+import formbody from '@fastify/formbody';
 import fetch from 'node-fetch';
 
 const fastify = Fastify();
 
-// Register the plugin directly
-await fastify.register(formbody);
+fastify.register(formbody);
 
 fastify.post('/check-website', async (request, reply) => {
   try {
@@ -24,7 +23,17 @@ fastify.post('/check-website', async (request, reply) => {
   }
 });
 
-fastify.listen({ port: process.env.PORT || 3000 }, (err) => {
-  if (err) throw err;
-  console.log('Proxy server running');
-});
+const start = async () => {
+  try {
+    await fastify.listen({
+      port: process.env.PORT || 3000,
+      host: '0.0.0.0' // This line is REQUIRED for Render
+    });
+    console.log('✅ Proxy server running');
+  } catch (err) {
+    console.error(err);
+    process.exit(1);
+  }
+};
+
+start();
