@@ -5,6 +5,7 @@
     "start": "node index.js"
   },
   "dependencies": {
+    "@fastify/formbody": "^8.0.2",
     "fastify": "^4.23.2",
     "node-fetch": "^3.3.2"
   },
